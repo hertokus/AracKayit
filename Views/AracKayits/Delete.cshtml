@@ -1,0 +1,66 @@
+﻿@model GülsanAraçKayıt.Models.AracKayit
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1 style="color:darkgoldenrod">Sil</h1>
+
+
+<div>
+    
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            <h6> Gelen Araç Plakası</h6>
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Plaka)
+        </dd>
+        <dt class = "col-sm-2">
+            <h6> Dorse Plakası</h6>
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DorsePlakasi)
+        </dd>
+        <dt class = "col-sm-2">
+            <h6> Şoför Adı</h6>
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SoforAdi)
+        </dd>
+        <dt class = "col-sm-2">
+            <h6> Güvenlik Adı </h6>
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.GuvenlikAdi)
+        </dd>
+        <dt class = "col-sm-2">
+            <h6> Gönderen Nakliye Firması</h6>
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NakliyeSirketi)
+        </dd>
+        <dt class = "col-sm-2">
+            <h6> Gönderen İşletme </h6>
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IsletmedenGeldigiYer)
+        </dd>
+        <dt class = "col-sm-2">
+            <h6> Kayıt Tarihi </h6>
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.KayitTarihi)
+        </dd>
+    </dl>
+    
+    <h4>Silmek İstediğine Emin Misin ?</h4>
+
+    <form asp-action="Delete" asp-controller="AracKayits" method="post">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <button type="submit" class="btn btn-outline-danger">Sil</button>
+    </form>
+
+
+</div>

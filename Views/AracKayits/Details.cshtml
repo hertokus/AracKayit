@@ -1,0 +1,119 @@
+﻿@model GülsanAraçKayıt.Models.AracKayit
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container">
+    <h1 style="color:darkgoldenrod">Araç Kayıt Detayları</h1>
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+            <h4 style="color:brown">Araç Bilgileri</h4>
+            <br>
+            <br>
+            <dl class="row">
+                <dt class="col-sm-4">
+                    <h6>Gelen Araç Plakası</h6>
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Plaka)
+                </dd>
+                <dt class="col-sm-4">
+                    <h6>Dorse Plakası</h6>
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.DorsePlakasi)
+                </dd>
+                <dt class="col-sm-4">
+                    <h6>Şoför Adı</h6>
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.SoforAdi)
+                </dd>
+                <dt class="col-sm-4">
+                    <h6>Güvenlik Adı</h6>
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.GuvenlikAdi)
+                </dd>
+                <dt class="col-sm-4">
+                    <h6>Gönderen Nakliye Firması</h6>
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.NakliyeSirketi)
+                </dd>
+                <dt class="col-sm-4">
+                    <h6>Gönderen İşletme</h6>
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.IsletmedenGeldigiYer)
+                </dd>
+                <dt class="col-sm-4">
+                    <h6>Kayıt Tarihi</h6>
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.KayitTarihi)
+                </dd>
+                <dt class="col-sm-4">
+                    <h6>Onay Durumu</h6>
+                </dt>
+                <dd class="col-sm-8">
+                    @if (Model?.Onay ?? false)
+                    {
+                        <span class="text-success">✔ Onaylandı</span>
+                    }
+                    else
+                    {
+                        <span class="text-danger">✘ Onaylanmadı</span>
+                    }
+                </dd>
+            </dl>
+        </div>
+
+        <div class="col-md-8">
+            <h3 style="color:darkblue">Onay Formu</h3>
+            <br />
+            <h4 style="color:brown">Lütfen Formu Doldurunuz</h4>
+            <br />
+            <form asp-action="Approve" method="post">
+                <input type="hidden" asp-for="Id" />
+
+                @if (ViewBag.Sorular != null && ViewBag.Sorular.Count > 0)
+                {
+                    var soruNumarasi = 1;
+                    <!-- Sayaç değişkeni -->
+                    foreach (var soru in (List<GülsanAraçKayıt.Models.Sorular>)ViewBag.Sorular)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="onaySorulari" value="@soru.Id" />
+                            <label class="form-check-label">
+                                <!-- Soru numarasını ekliyoruz -->
+                                @soruNumarasi: @soru.FormSorular
+                            </label>
+                        </div>
+
+                        soruNumarasi++;
+                        <!-- Sayaç arttırılır -->
+                    }
+                }
+                else
+                {
+                    <p>Onay soruları bulunamadı.</p>
+                }
+                <button type="submit" class="btn btn-primary mt-2">Onayla</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Hata Mesajı -->
+    @if (!string.IsNullOrEmpty(ViewData["ErrorMessage"]?.ToString()))
+    {
+        <div class="alert alert-danger mt-3">@ViewData["ErrorMessage"]</div>
+    }
+
+    <div class="mt-3">
+        <a asp-action="Edit" asp-route-id="@Model?.Id">Düzenle</a> |
+        <a asp-action="Index">Listeye Dön</a>
+    </div>
+</div>

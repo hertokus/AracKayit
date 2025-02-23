@@ -1,0 +1,85 @@
+﻿@model IEnumerable<GülsanAraçKayıt.Models.AracKayit>
+
+@{
+    ViewData["Title"] = "Araç Kayıt Listesi";
+}
+
+<!-- Üstbilgi ve Başlık -->
+<div class="container-fluid text-light py-3">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <em><h2 style="color:#003366;" class="display-4">Araç Kayıt Listesi</h2></em>
+        </div>
+    </div>
+</div>
+
+<!-- Araç Kayıt Listesi Başlığı -->
+<div class="container mt-4">
+    <!-- Arama ve Yeni Kayıt Butonu -->
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <a asp-action="Create" class="btn btn-outline-success">Yeni Araç Kaydı Oluştur</a>
+        </div>
+    </div>
+
+    <!-- Not ve Arama Kısmı -->
+    <div class="row mb-3 d-flex justify-content-between align-items-center">
+        <div class="col-md-6">
+            <h5 style="color:brown">Not: Araç Onayı için Lütfen Detaylar Sekmesindeki Formu Doldurunuz</h5>
+        </div>
+        <div class="col-md-6 d-flex justify-content-end">
+            <form asp-controller="AracKayits" asp-action="Search" method="get" class="d-flex align-items-center">
+                <div class="form-group mb-0 mr-2">
+                    <input type="text" name="searchString" class="form-control" placeholder="Plaka, Şoför Adı, Dorse Plakası" />
+                </div>
+                <button style="background-color:#003366" type="submit" class="btn btn-primary">Ara</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Araç Kayıt Listesi Tablosu -->
+    <table class="table table-bordered table-hover">
+        <thead style="color:ghostwhite">
+            <tr style="background-color:#003366">
+                <th>@Html.DisplayNameFor(model => model.Plaka)</th>
+                <th>@Html.DisplayNameFor(model => model.DorsePlakasi)</th>
+                <th>@Html.DisplayNameFor(model => model.SoforAdi)</th>
+                <th>@Html.DisplayNameFor(model => model.GuvenlikAdi)</th>
+                <th>@Html.DisplayNameFor(model => model.NakliyeSirketi)</th>
+                <th>@Html.DisplayNameFor(model => model.IsletmedenGeldigiYer)</th>
+                <th>@Html.DisplayNameFor(model => model.KayitTarihi)</th>
+                <th>@Html.DisplayNameFor(model => model.Onay)</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody style="color:#003366">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Plaka)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DorsePlakasi)</td>
+                    <td>@Html.DisplayFor(modelItem => item.SoforAdi)</td>
+                    <td>@Html.DisplayFor(modelItem => item.GuvenlikAdi)</td>
+                    <td>@Html.DisplayFor(modelItem => item.NakliyeSirketi)</td>
+                    <td>@Html.DisplayFor(modelItem => item.IsletmedenGeldigiYer)</td>
+                    <td>@Html.DisplayFor(modelItem => item.KayitTarihi)</td>
+                    <td>
+                        @if (item.Onay)
+                        {
+                            <span style="color: green;">&#10004;</span> <!-- Yeşil tik -->
+                        }
+                        else
+                        {
+                            <span style="color: red;">&#10008;</span> <!-- Kırmızı çarpı -->
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-dark btn-sm">Düzenle</a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-warning btn-sm">Detaylar</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm">Sil</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

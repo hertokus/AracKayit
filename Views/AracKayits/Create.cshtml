@@ -1,0 +1,80 @@
+﻿@model GülsanAraçKayıt.Models.AracKayit
+
+@{
+    ViewData["Title"] = "Yeni Araç Kaydı Oluştur";
+}
+
+<h4>Yeni Araç Kaydı Oluştur</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- Araç Plakası -->
+            <div class="form-group">
+                <label asp-for="Plaka" class="control-label">Araç Plakası</label>
+                <input asp-for="Plaka" class="form-control" />
+                <span asp-validation-for="Plaka" class="text-danger"></span>
+            </div>
+
+            <!-- Dorse Plakası -->
+            <div class="form-group">
+                <label asp-for="DorsePlakasi" class="control-label">Dorse Plakası</label>
+                <input asp-for="DorsePlakasi" class="form-control" />
+                <span asp-validation-for="DorsePlakasi" class="text-danger"></span>
+            </div>
+
+            <!-- Şoför Adı -->
+            <div class="form-group">
+                <label asp-for="SoforAdi" class="control-label">Şoför Adı</label>
+                <input asp-for="SoforAdi" class="form-control" />
+                <span asp-validation-for="SoforAdi" class="text-danger"></span>
+            </div>
+
+            <!-- Güvenlik Adı -->
+            <div class="form-group">
+                <label asp-for="GuvenlikAdi" class="control-label">Kontrol Yapan Güvenlik Adı</label>
+                <select asp-for="GuvenlikAdi" class="form-control" asp-items="ViewBag.GuvenlikList"></select>
+                <span asp-validation-for="GuvenlikAdi" class="text-danger"></span>
+            </div>
+
+            <!-- Nakliye Şirketi -->
+            <div class="form-group">
+                <label asp-for="NakliyeSirketi" class="control-label">Nakliye Şirketi</label>
+                <input asp-for="NakliyeSirketi" class="form-control" />
+                <span asp-validation-for="NakliyeSirketi" class="text-danger"></span>
+            </div>
+
+            <!-- İşletmeden Geldiği Yer -->
+            <div class="form-group">
+                <label asp-for="IsletmedenGeldigiYer" class="control-label"> Geldiği İşletme  </label>
+                <input asp-for="IsletmedenGeldigiYer" class="form-control" />
+                <span asp-validation-for="IsletmedenGeldigiYer" class="text-danger"></span>
+            </div>
+
+            <!-- Kayıt Tarihi -->
+            <div class="form-group">
+                <label asp-for="KayitTarihi" class="control-label">Kayıt Tarihi</label>
+                <input asp-for="KayitTarihi" class="form-control" />
+                <span asp-validation-for="KayitTarihi" class="text-danger"></span>
+            </div>
+
+            <br>
+            <div class="form-group">
+                <input type="submit" value="Oluştur" class="btn btn-outline-success" />
+            </div>
+        </form>
+    </div>
+</div>
+<br>
+
+<div>
+    <a asp-action="Index">Listeye Dön</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
